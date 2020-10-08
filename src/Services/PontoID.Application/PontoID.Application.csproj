@@ -5,15 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
+    <Compile Remove="Commands\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <None Remove="Commands\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="FluentValidation" Version="9.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\PontoID.Domain.Shared\PontoID.Domain.Shared.csproj" />
+    <ProjectReference Include="..\PontoID.Domain\PontoID.Domain.csproj" />
   </ItemGroup>
 
 </Project>

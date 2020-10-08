@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation.Results;
+using System.Collections.Generic;
 
 namespace PontoID.Domain.Shared
 {
@@ -28,6 +29,14 @@ namespace PontoID.Domain.Shared
         public Response(T entity)
         {
             Entity = entity;
+        }
+
+        public Response(ValidationResult validation)
+        {
+            foreach (var error in validation.Errors)
+            {
+                this.AddError(error.ErrorMessage);
+            }
         }
 
         public Response(T entity, ICollection<T> entities)

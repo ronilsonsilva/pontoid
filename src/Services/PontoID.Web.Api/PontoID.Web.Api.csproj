@@ -8,5 +8,14 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="FluentValidation" Version="9.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PontoID.Application\PontoID.Application.csproj" />
+  </ItemGroup>
+
 
 </Project>

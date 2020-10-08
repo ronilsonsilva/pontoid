@@ -1,6 +1,6 @@
 ﻿using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Contracts.Services;
-using PontoID.Domain.Entities;
+using PontoID.Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,6 +18,7 @@ namespace PontoID.Domain.Services
 
         public async Task<Entity> Add(Entity entity)
         {
+            if (!entity.Validators.IsValid) return null;
             var ok = await this._repository.Add(entity);
             if (!ok) return null;
             return entity;
@@ -33,13 +34,14 @@ namespace PontoID.Domain.Services
             return await this._repository.GetEntity(id);
         }
 
-        public async Task<ICollection<Entity>> GetList()
+        public async Task<ICollection<Entity>> GetEntities()
         {
             return await this._repository.GetEntities();
         }
 
         public async Task<Entity> Update(Entity entity)
         {
+            if (!entity.Validators.IsValid) return null;
             var ok = await this._repository.Update(entity);
             if (!ok) return null;
             return entity;

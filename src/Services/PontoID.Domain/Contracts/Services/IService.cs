@@ -9,7 +9,7 @@ namespace PontoID.Domain.Contracts.Services
         Task<Entity> Add(Entity entity);
         Task<Entity> Update(Entity entity);
         Task<Entity> GetEntity(Guid id);
-        Task<ICollection<Entity>> GetList();
+        Task<ICollection<Entity>> GetEntities();
         Task<bool> Delete(Guid id);
     }
 }
