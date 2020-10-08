@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PontoID.Domain.Contracts.Repository;
+using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,13 +18,13 @@ namespace PontoID.Infra.Data.Repository.Repositories
             _context = context;
         }
 
-        public async Task<bool> Add(Entity entity)
+        public virtual async Task<bool> Add(Entity entity)
         {
             this._context.Set<Entity>().Add(entity);
             return await this._context.Commit();
         }
 
-        public async Task<bool> Delete(Guid id)
+        public virtual async Task<bool> Delete(Guid id)
         {
             var entityRemover = await this.GetEntity(id);
             if (entityRemover == null) return false;
@@ -32,7 +32,7 @@ namespace PontoID.Infra.Data.Repository.Repositories
             return await this._context.Commit();
         }
 
-        public async Task<bool> Delete(Expression<Func<Entity, bool>> expression)
+        public virtual async Task<bool> Delete(Expression<Func<Entity, bool>> expression)
         {
             var entitiesRemover = await this.GetEntities(expression);
             if (entitiesRemover?.Count() == 0) return false;
@@ -40,30 +40,30 @@ namespace PontoID.Infra.Data.Repository.Repositories
             return await this._context.Commit();
         }
 
-        public async Task<Entity> GetEntity(Guid id)
+        public virtual async Task<Entity> GetEntity(Guid id)
         {
             return await this._context.Set<Entity>().FindAsync(id);
         }
 
-        public async Task<Entity> GetEntity(Expression<Func<Entity, bool>> expression)
+        public virtual async Task<Entity> GetEntity(Expression<Func<Entity, bool>> expression)
         {
             return await this._context.Set<Entity>().FirstOrDefaultAsync(expression);
         }
 
-        public async Task<ICollection<Entity>> GetEntities()
+        public virtual async Task<ICollection<Entity>> GetEntities()
         {
             return await this._context.Set<Entity>()
                 .ToListAsync();
         }
 
-        public async Task<ICollection<Entity>> GetEntities(Expression<Func<Entity, bool>> expression)
+        public virtual async Task<ICollection<Entity>> GetEntities(Expression<Func<Entity, bool>> expression)
         {
             return await this._context.Set<Entity>()
                 .Where(expression)
                 .ToListAsync();
         }
 
-        public async Task<bool> Update(Entity entity)
+        public virtual async Task<bool> Update(Entity entity)
         {
             this._context.Set<Entity>().Update(entity);
             return await this._context.Commit();

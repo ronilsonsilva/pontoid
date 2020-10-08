@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PontoID.Domain.Shared;
+using System.Collections.Generic;
 
 namespace PontoID.Domain.Entities
 {

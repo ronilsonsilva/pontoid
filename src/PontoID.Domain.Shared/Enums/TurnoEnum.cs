@@ -1,4 +1,4 @@
-﻿namespace PontoID.Domain.Entities.Enums
+﻿namespace PontoID.Domain.Shared.Enums
 {
     public enum TurnoEnum: byte
     {

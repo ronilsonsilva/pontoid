@@ -1,34 +1,35 @@
-﻿using PontoID.Domain.Contracts.Repository;
+﻿using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Contracts.Services;
 using PontoID.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PontoID.Domain.Services
 {
     public class AlunoService : Service<Aluno>, IAlunoService
     {
-        protected readonly IRepository<AlunoTurma> _alunoTurmaRepository;
-        public AlunoService(IRepository<Aluno> repository, IRepository<AlunoTurma> alunoTurmaRepository) : base(repository)
+        protected readonly IAlunoTurmaRepository _alunoTurmaRepository;
+        public AlunoService(IAlunoRepository repository, IAlunoTurmaRepository alunoTurmaRepository) : base(repository)
         {
             _alunoTurmaRepository = alunoTurmaRepository;
         }
 
-        public async Task<Turma> AdicionarTurma(Turma turma)
+        public async Task<AlunoTurma> AdicionarTurma(AlunoTurma turma)
         {
             var ok = await this._alunoTurmaRepository.Add(turma);
+            if(ok) return turma;
+            return null;
         }
 
-        public Task<Turma> ExcluirTurma(Turma turma)
+        public async Task<bool> ExcluirTurma(Guid id)
         {
-            throw new NotImplementedException();
+            return await this._alunoTurmaRepository.Delete(id);
         }
 
-        public Task<ICollection<Turma>> ListarTurmas(Guid alunoId)
+        public async Task<ICollection<AlunoTurma>> ListarTurmas(Guid alunoId)
         {
-            throw new NotImplementedException();
+            return await this._alunoTurmaRepository.GetEntities(x => x.AlunoId == alunoId);
         }
     }
 }

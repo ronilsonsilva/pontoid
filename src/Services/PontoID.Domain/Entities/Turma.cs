@@ -1,4 +1,5 @@
-﻿using PontoID.Domain.Entities.Enums;
+﻿using PontoID.Domain.Shared;
+using PontoID.Domain.Shared.Enums;
 using System;
 using System.Collections.Generic;
 

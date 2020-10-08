@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PontoID.Domain.Contracts.Repository
+namespace PontoID.Domain.Contracts.Repositories
 {
     public interface IUnitOfWork
     {

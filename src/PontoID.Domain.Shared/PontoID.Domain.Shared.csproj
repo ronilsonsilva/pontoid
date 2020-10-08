@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PontoID.Domain.Shared\PontoID.Domain.Shared.csproj" />
+    <Folder Include="Responses\" />
   </ItemGroup>
 
 </Project>

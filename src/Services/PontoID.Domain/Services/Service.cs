@@ -1,4 +1,4 @@
-﻿using PontoID.Domain.Contracts.Repository;
+﻿using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Contracts.Services;
 using PontoID.Domain.Entities;
 using System;

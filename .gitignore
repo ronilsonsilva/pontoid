@@ -11,3 +11,4 @@
 /src/Services/PontoID.Infra.Data.Repository/bin/Debug/netcoreapp3.1
 /src/Services/PontoID.Infra.Data.Repository/obj
 /src/Services/PontoID.Web.Api/obj
+/src/PontoID.Domain.Shared/obj

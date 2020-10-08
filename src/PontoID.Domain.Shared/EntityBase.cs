@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PontoID.Domain.Entities
+namespace PontoID.Domain.Shared
 {
     public class EntityBase
     {

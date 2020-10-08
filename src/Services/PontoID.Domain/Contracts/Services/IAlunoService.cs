@@ -7,8 +7,8 @@ namespace PontoID.Domain.Contracts.Services
 {
     public interface IAlunoService : IService<Aluno>
     {
-        Task<Turma> AdicionarTurma(Turma turma);
-        Task<Turma> ExcluirTurma(Turma turma);
-        Task<ICollection<Turma>> ListarTurmas(Guid alunoId);
+        Task<AlunoTurma> AdicionarTurma(AlunoTurma turma);
+        Task<bool> ExcluirTurma(Guid id);
+        Task<ICollection<AlunoTurma>> ListarTurmas(Guid alunoId);
     }
 }

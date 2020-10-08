@@ -4,9 +4,9 @@ using PontoID.Domain.Entities;
 
 namespace PontoID.Domain.Services
 {
-    public class EscolaService : Service<Escola>, IEscolaService
+    public class TurmaService : Service<Turma>, ITurmaService
     {
-        public EscolaService(IEscolaRepository repository) : base(repository)
+        public TurmaService(ITurmaRepository repository) : base(repository)
         {
         }
     }
