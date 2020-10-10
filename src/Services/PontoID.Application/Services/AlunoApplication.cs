@@ -1,37 +1,46 @@
 ﻿using AutoMapper;
 using PontoID.Application.Contracts;
+using PontoID.Data.Repository.Reading.Contracts;
 using PontoID.Domain.Contracts.Services;
 using PontoID.Domain.Entities;
 using PontoID.Domain.Shared;
 using PontoID.Domain.Shared.Command;
 using PontoID.Domain.Shared.Request;
 using PontoID.Domain.Shared.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PontoID.Application.Services
 {
     public class AlunoApplication : BaseApplication<AlunoViewModel, Aluno>, IAlunoApplication
     {
-        public AlunoApplication(IService<Aluno> service, IMapper mapper) : base(service, mapper)
+        protected readonly ITurmaApplication _turmaApplication;
+        protected readonly IAlunoService _alunoService;
+        protected readonly IAlunoReadRepository _alunoReadRepository;
+        public AlunoApplication(IAlunoService service, IMapper mapper, ITurmaApplication turmaApplication, IAlunoReadRepository alunoReadRepository) : base(service, mapper)
         {
+            this._alunoService = service;
+            this._turmaApplication = turmaApplication;
+            this._alunoReadRepository = alunoReadRepository;
         }
 
-        public Task<Response<TurmaViewModel>> AdicionarTurma(AdicionarAlunoTurmaCommand command)
+        public async Task<Response<TurmaViewModel>> AdicionarTurma(AdicionarAlunoTurmaCommand command)
         {
-            throw new NotImplementedException();
+            var alunoTurma = new AlunoTurma(command.TurmaId, command.AlunoId);
+            if (!alunoTurma.Validators.IsValid) return new Response<TurmaViewModel>(alunoTurma.Validators);
+            var retornoDominio = await this._alunoService.AdicionarTurma(alunoTurma);
+            if (retornoDominio == null) return new Response<TurmaViewModel>().AddError("Não foi possível aidicionar aluno na turma");
+            return new Response<TurmaViewModel>(await this._turmaApplication.Get(retornoDominio.TurmaId));
         }
 
-        public Task<Response<TurmaViewModel>> DeleteTurma(ExcluirAlunoTurmaCommand command)
+        public async Task<Response<bool>> DeleteTurma(ExcluirAlunoTurmaCommand command)
         {
-            throw new NotImplementedException();
+            return new Response<bool>(await this._alunoService.ExcluirTurma(command));
         }
 
-        public Task<ICollection<AlunoViewModel>> Listar(AlunoRequest request)
+        public async Task<ICollection<AlunoViewModel>> Listar(AlunoRequest request)
         {
-            throw new NotImplementedException();
+            return await this._alunoReadRepository.Listar(request);
         }
     }
 }

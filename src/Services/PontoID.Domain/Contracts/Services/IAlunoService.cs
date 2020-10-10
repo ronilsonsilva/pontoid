@@ -1,6 +1,5 @@
 ﻿using PontoID.Domain.Entities;
-using System;
-using System.Collections.Generic;
+using PontoID.Domain.Shared.Command;
 using System.Threading.Tasks;
 
 namespace PontoID.Domain.Contracts.Services
@@ -8,7 +7,6 @@ namespace PontoID.Domain.Contracts.Services
     public interface IAlunoService : IService<Aluno>
     {
         Task<AlunoTurma> AdicionarTurma(AlunoTurma turma);
-        Task<bool> ExcluirTurma(Guid id);
-        Task<ICollection<AlunoTurma>> ListarTurmas(Guid alunoId);
+        Task<bool> ExcluirTurma(ExcluirAlunoTurmaCommand command);
     }
 }

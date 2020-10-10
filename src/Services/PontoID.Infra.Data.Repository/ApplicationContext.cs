@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PontoID.Domain.Contracts.Repository;
+using PontoID.Domain.Contracts.Repositories;
 using PontoID.Infra.Data.Repository.Mappings;
 using System;
 using System.Linq;

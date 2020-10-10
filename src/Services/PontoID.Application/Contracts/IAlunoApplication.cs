@@ -10,7 +10,7 @@ namespace PontoID.Application.Contracts
     public interface IAlunoApplication : IApplication<AlunoViewModel>
     {
         Task<Response<TurmaViewModel>> AdicionarTurma(AdicionarAlunoTurmaCommand command);
-        Task<Response<TurmaViewModel>> DeleteTurma(ExcluirAlunoTurmaCommand command);
+        Task<Response<bool>> DeleteTurma(ExcluirAlunoTurmaCommand command);
         Task<ICollection<AlunoViewModel>> Listar(AlunoRequest request);
     }
 }

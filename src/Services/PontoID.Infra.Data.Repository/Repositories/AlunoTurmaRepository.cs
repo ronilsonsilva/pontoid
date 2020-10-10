@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PontoID.Infra.Data.Repository.Repositories
 {
-    public class AlunoTurmaRepository : Repository<AlunoTurma>
+    public class AlunoTurmaRepository : Repository<AlunoTurma>, IAlunoTurmaRepository
     {
         public AlunoTurmaRepository(ApplicationContext context) : base(context)
         {

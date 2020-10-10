@@ -27,11 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - CrossCutting", "4.2 -
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoID.Infra.Data.Repository", "Services\PontoID.Infra.Data.Repository\PontoID.Infra.Data.Repository.csproj", "{0745C3A5-6072-47E3-9628-85ED748AE0B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoID.Data.Repository.Read", "Services\PontoID.Data.Repository.Read\PontoID.Data.Repository.Read.csproj", "{6D5450A1-C0DF-4A9D-887C-A7B31650F45F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoID.Data.Repository.Reading", "Services\PontoID.Data.Repository.Read\PontoID.Data.Repository.Reading.csproj", "{6D5450A1-C0DF-4A9D-887C-A7B31650F45F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoID.Infra.Croscutting.Ioc", "Services\PontoID.Infra.Croscutting.Ioc\PontoID.Infra.Croscutting.Ioc.csproj", "{ADDFABEB-6C91-4CC8-8312-CE45A3DDBA80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PontoID.Domain.Shared", "PontoID.Domain.Shared\PontoID.Domain.Shared.csproj", "{F2A870B1-1404-4D87-AA14-9C62843482E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PontoID.Domain.Shared", "PontoID.Domain.Shared\PontoID.Domain.Shared.csproj", "{F2A870B1-1404-4D87-AA14-9C62843482E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

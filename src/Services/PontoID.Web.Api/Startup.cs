@@ -4,15 +4,30 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using PontoID.Application.AutoMapper;
+using PontoID.Infra.Croscutting.Ioc;
+using PontoID.Web.Api.Configurations;
 
 namespace PontoID.Web.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostEnvironment hostEnvironment)
         {
-            Configuration = configuration;
+            //Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+                .AddEnvironmentVariables();
+
+            //if (hostEnvironment.IsDevelopment())
+            //{
+            //    builder.AddUserSecrets<Startup>();
+            //}
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -20,7 +35,20 @@ namespace PontoID.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects);
+
+            services.AddApiConfiguration();
+
+            services.AddSwaggerConfiguration();
 
             // Configurar Automapper
             var mapperConfig = new MapperConfiguration(mc =>
@@ -30,26 +58,22 @@ namespace PontoID.Web.Api
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+            RegisterServices(services, this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseCors("CorsPolicy");
 
-            app.UseHttpsRedirection();
+            app.UseSwaggerConfiguration();
 
-            app.UseRouting();
+            app.UseApiConfiguration(env);
+        }
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+        private static void RegisterServices(IServiceCollection services, IConfiguration configuration)
+        {
+            NativeInjectorBootStrapper.RegisterServices(services, configuration);
         }
     }
 }

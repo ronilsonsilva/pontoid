@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PontoID.Domain.Entities;
+using PontoID.Domain.Shared;
 using System;
 
 namespace PontoID.Infra.Data.Repository.Mappings

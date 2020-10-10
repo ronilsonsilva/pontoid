@@ -40,11 +40,6 @@ namespace PontoID.Application.Services
             return this._mapper.Map<EntityViewModel>(await this._service.GetEntity(id));
         }
 
-        public async Task<ICollection<EntityViewModel>> GetEntities()
-        {
-            return this._mapper.Map<ICollection<EntityViewModel>>(await this._service.GetEntities());
-        }
-
         public async Task<Response<EntityViewModel>> Update(EntityViewModel entityViewModel)
         {
             var entity = this._mapper.Map<Entity>(entityViewModel);

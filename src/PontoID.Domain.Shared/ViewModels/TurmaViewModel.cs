@@ -3,7 +3,7 @@ using System;
 
 namespace PontoID.Domain.Shared.ViewModels
 {
-    public class TurmaViewModel : EntityBase
+    public class TurmaViewModel : ViewModelBase
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }
