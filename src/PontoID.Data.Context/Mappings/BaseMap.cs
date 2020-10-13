@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PontoID.Domain.Shared;
 using System;
 
-namespace PontoID.Infra.Data.Repository.Mappings
+namespace PontoID.Infra.Data.Context
 {
     public class BaseMap<Entity> : IEntityTypeConfiguration<Entity> where Entity : EntityBase
     {
@@ -24,6 +24,8 @@ namespace PontoID.Infra.Data.Repository.Mappings
             builder.Property(x => x.Atualizado)
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now);
+
+            builder.Ignore(x => x.Validators);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PontoID.Domain.Entities;
 
-namespace PontoID.Infra.Data.Repository.Mappings
+namespace PontoID.Infra.Data.Context
 {
     public class AlunoTurmaMap : BaseMap<AlunoTurma>
     {

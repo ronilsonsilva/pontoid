@@ -68,5 +68,10 @@ namespace PontoID.Infra.Data.Repository.Repositories
             this._context.Set<Entity>().Update(entity);
             return await this._context.Commit();
         }
+
+        public async Task<bool> Existe(Expression<Func<Entity, bool>> expression)
+        {
+            return (await this._context.Set<Entity>().FirstOrDefaultAsync(expression)) != null;
+        }
     }
 }

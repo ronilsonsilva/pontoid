@@ -7,9 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
     <ProjectReference Include="..\PontoID.Application\PontoID.Application.csproj" />
     <ProjectReference Include="..\PontoID.Infra.Data.Repository\PontoID.Infra.Data.Repository.csproj" />
   </ItemGroup>

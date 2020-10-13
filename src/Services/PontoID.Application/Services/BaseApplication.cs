@@ -22,7 +22,7 @@ namespace PontoID.Application.Services
         public async Task<Response<EntityViewModel>> Add(EntityViewModel entityViewModel)
         {
             var entity = this._mapper.Map<Entity>(entityViewModel);
-            if (!entity.Validators.IsValid) return new Response<EntityViewModel>(entity.Validators);
+            if (!entity.IsValid()) return new Response<EntityViewModel>(entity.Validators);
             var retornoDoinio = await this._service.Add(entity);
             if (retornoDoinio == null) return new Response<EntityViewModel>().AddError("Não foi possível salvar o registro");
             return new Response<EntityViewModel>(this._mapper.Map<EntityViewModel>(retornoDoinio));
@@ -43,7 +43,7 @@ namespace PontoID.Application.Services
         public async Task<Response<EntityViewModel>> Update(EntityViewModel entityViewModel)
         {
             var entity = this._mapper.Map<Entity>(entityViewModel);
-            if (!entity.Validators.IsValid) return new Response<EntityViewModel>(entity.Validators);
+            if (!entity.IsValid()) return new Response<EntityViewModel>(entity.Validators);
             var retornoDoinio = await this._service.Update(entity);
             if (retornoDoinio == null) return new Response<EntityViewModel>().AddError("Não foi possível alterar o registro");
             return new Response<EntityViewModel>(this._mapper.Map<EntityViewModel>(retornoDoinio));

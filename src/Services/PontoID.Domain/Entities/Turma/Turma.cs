@@ -24,5 +24,12 @@ namespace PontoID.Domain.Entities
 
         public Escola Escola { get; set; }
         public ICollection<AlunoTurma> Alunos { get; set; }
+
+        public override bool IsValid()
+        {
+            var validator = new TurmaValidator();
+            this.Validators = validator.Validate(this);
+            return this.Validators.IsValid;
+        }
     }
 }

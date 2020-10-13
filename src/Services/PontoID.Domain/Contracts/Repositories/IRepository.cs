@@ -15,5 +15,6 @@ namespace PontoID.Domain.Contracts.Repositories
         Task<ICollection<Entity>> GetEntities(Expression<Func<Entity, bool>> expression);
         Task<bool> Delete(Guid id);
         Task<bool> Delete(Expression<Func<Entity, bool>> expression);
+        Task<bool> Existe(Expression<Func<Entity, bool>> expression);
     }
 }

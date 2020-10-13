@@ -27,7 +27,7 @@ namespace PontoID.Application.Services
         public async Task<Response<TurmaViewModel>> AdicionarTurma(AdicionarAlunoTurmaCommand command)
         {
             var alunoTurma = new AlunoTurma(command.TurmaId, command.AlunoId);
-            if (!alunoTurma.Validators.IsValid) return new Response<TurmaViewModel>(alunoTurma.Validators);
+            if (!alunoTurma.IsValid()) return new Response<TurmaViewModel>(alunoTurma.Validators);
             var retornoDominio = await this._alunoService.AdicionarTurma(alunoTurma);
             if (retornoDominio == null) return new Response<TurmaViewModel>().AddError("Não foi possível aidicionar aluno na turma");
             return new Response<TurmaViewModel>(await this._turmaApplication.Get(retornoDominio.TurmaId));

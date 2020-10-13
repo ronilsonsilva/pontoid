@@ -20,5 +20,12 @@ namespace PontoID.Domain.Entities
         public string Cpf { get; set; }
 
         public ICollection<AlunoTurma> Turmas { get; set; }
+
+        public override bool IsValid()
+        {
+            var validator = new AlunoValidators();
+            this.Validators = validator.Validate(this);
+            return this.Validators.IsValid;
+        }
     }
 }

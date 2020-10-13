@@ -10,7 +10,7 @@ namespace PontoID.Domain.Entities
             RuleFor(x => x.DataNascimento)
                 .NotNull().WithMessage("Data de nascimento não foi preenchido")
                 .NotEqual(DateTime.MinValue).WithMessage("Data de nascimento inválida")
-                .GreaterThan(DateTime.Now).WithMessage($"Data de nasciemnto deve ser menor ou igual a {DateTime.Now}");
+                .LessThan(DateTime.Now).WithMessage($"Data de nasciemnto deve ser menor ou igual a {DateTime.Now}");
 
             RuleFor(x => x.Cpf)
                 .NotNull().WithMessage("CPF não foi fornecido")

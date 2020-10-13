@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PontoID.Domain.Contracts.Repositories;
-using PontoID.Infra.Data.Repository.Mappings;
+using PontoID.Infra.Data.Context;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +9,13 @@ namespace PontoID.Infra.Data.Repository
 {
     public class ApplicationContext : DbContext, IUnitOfWork
     {
+        public ApplicationContext(DbContextOptions options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -20,6 +25,7 @@ namespace PontoID.Infra.Data.Repository
             modelBuilder.ApplyConfiguration(new EscolaMap());
             modelBuilder.ApplyConfiguration(new TurmaMap());
             modelBuilder.ApplyConfiguration(new AlunoTurmaMap());
+
             base.OnModelCreating(modelBuilder);
         }
 

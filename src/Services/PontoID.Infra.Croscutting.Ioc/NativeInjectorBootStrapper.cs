@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PontoID.Application.Contracts;
 using PontoID.Application.Services;
@@ -18,6 +19,11 @@ namespace PontoID.Infra.Croscutting.Ioc
         {
             #region [Configurações]
 
+            var connection = configuration["CONNECTION_STRING:Postgres"];
+            services.AddDbContext<ApplicationContext>
+                (options =>
+                    options.UseNpgsql(connection)
+                );
             services.AddScoped<ApplicationContext, ApplicationContext>();
 
             #endregion

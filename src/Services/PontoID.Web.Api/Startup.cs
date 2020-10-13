@@ -1,12 +1,14 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PontoID.Application.AutoMapper;
 using PontoID.Infra.Croscutting.Ioc;
+using PontoID.Infra.Data.Repository;
 using PontoID.Web.Api.Configurations;
 
 namespace PontoID.Web.Api

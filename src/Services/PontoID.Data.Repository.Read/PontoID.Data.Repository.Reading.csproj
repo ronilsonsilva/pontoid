@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
     <ProjectReference Include="..\..\PontoID.Domain.Shared\PontoID.Domain.Shared.csproj" />
   </ItemGroup>
 

@@ -17,5 +17,12 @@ namespace PontoID.Domain.Entities
         public long CodigoINEP { get; set; }
 
         public ICollection<Turma> Turmas { get; set; }
+
+        public override bool IsValid()
+        {
+            var validator = new EscolaValidators();
+            this.Validators = validator.Validate(this);
+            return this.Validators.IsValid;
+        }
     }
 }

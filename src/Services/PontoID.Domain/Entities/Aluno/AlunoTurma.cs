@@ -18,5 +18,12 @@ namespace PontoID.Domain.Entities
 
         public Turma Turma { get; set; }
         public Aluno Aluno { get; set; }
+
+        public override bool IsValid()
+        {
+            var validator = new AlunoTurmaValidators();
+            this.Validators = validator.Validate(this);
+            return this.Validators.IsValid;
+        }
     }
 }
