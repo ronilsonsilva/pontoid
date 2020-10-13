@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PontoID.Web.Data;
 using PontoID.Web.Models;
+using PontoID.Web.Services.Contracts;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PontoID.Web.Controllers
 {
     public class AlunoController : Controller
     {
-        private readonly PontoIDWebContext _context;
+        private readonly IAlunoService _alunoService;
 
-        public AlunoController(PontoIDWebContext context)
+        public AlunoController(IAlunoService alunoService)
         {
-            _context = context;
+            _alunoService = alunoService;
         }
 
         // GET: Aluno
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AlunoViewModel.ToListAsync());
+            var alunos = await this._alunoService.Listar(new AlunoRequest());
+            return View(alunos);
         }
 
         // GET: Aluno/Details/5
@@ -31,8 +30,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var alunoViewModel = await _context.AlunoViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var alunoViewModel = await this._alunoService.Detalhes(id.Value);
             if (alunoViewModel == null)
             {
                 return NotFound();
@@ -56,9 +54,7 @@ namespace PontoID.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                alunoViewModel.Id = Guid.NewGuid();
-                _context.Add(alunoViewModel);
-                await _context.SaveChangesAsync();
+                var response = await this._alunoService.Adicionar(alunoViewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(alunoViewModel);
@@ -72,7 +68,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var alunoViewModel = await _context.AlunoViewModel.FindAsync(id);
+            var alunoViewModel = await this._alunoService.Detalhes(id.Value);
             if (alunoViewModel == null)
             {
                 return NotFound();
@@ -94,22 +90,7 @@ namespace PontoID.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(alunoViewModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AlunoViewModelExists(alunoViewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var response = await this._alunoService.Editar(alunoViewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(alunoViewModel);
@@ -123,8 +104,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var alunoViewModel = await _context.AlunoViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var alunoViewModel = await this._alunoService.Detalhes(id.Value);
             if (alunoViewModel == null)
             {
                 return NotFound();
@@ -138,15 +118,8 @@ namespace PontoID.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var alunoViewModel = await _context.AlunoViewModel.FindAsync(id);
-            _context.AlunoViewModel.Remove(alunoViewModel);
-            await _context.SaveChangesAsync();
+            var response = await this._alunoService.Detalhes(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AlunoViewModelExists(Guid id)
-        {
-            return _context.AlunoViewModel.Any(e => e.Id == id);
         }
     }
 }

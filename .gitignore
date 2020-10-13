@@ -19,3 +19,7 @@
 /src/PontoID.Data.Context/obj
 /src/PontoID.Data.Context/bin/Debug/netcoreapp3.1
 /src/Presentation/PontoID.Web/bin/Debug/netcoreapp3.1
+/src/Services/PontoID.Data.Context/bin/Debug/netcoreapp3.1
+/src/Services/PontoID.Data.Context/obj
+/src/Services/PontoID.Domain.Shared/bin/Debug/netcoreapp3.1
+/src/Services/PontoID.Domain.Shared/obj

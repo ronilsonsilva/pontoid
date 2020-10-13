@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
-    <ProjectReference Include="..\..\PontoID.Domain.Shared\PontoID.Domain.Shared.csproj" />
+    <ProjectReference Include="..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
+    <ProjectReference Include="..\PontoID.Domain.Shared\PontoID.Domain.Shared.csproj" />
   </ItemGroup>
 
 </Project>

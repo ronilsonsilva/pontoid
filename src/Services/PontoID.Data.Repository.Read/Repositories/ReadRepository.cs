@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PontoID.Data.Repository.Reading.Contracts;
-using PontoID.Infra.Data.Repository;
+using PontoID.Infra.Data.Context;
 using System.Data;
 
 namespace PontoID.Data.Repository.Reading.Repositories

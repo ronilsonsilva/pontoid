@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using PontoID.Web.Data;
+using PontoID.Web.Services;
+using PontoID.Web.Services.Contracts;
+using PontoID.Web.Services.IntegrationsConfig;
 
 namespace PontoID.Web
 {
@@ -27,8 +23,7 @@ namespace PontoID.Web
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<PontoIDWebContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("PontoIDWebContext")));
+            this.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +52,16 @@ namespace PontoID.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public void RegisterServices(IServiceCollection services)
+        {
+            services.AddScoped<IEscolaService, EscolaService>();
+            services.AddScoped<ITurmaService, TurmaService>();
+            services.AddScoped<IAlunoService, AlunoService>();
+
+            var integrationConfig = new IntegrationConfig(this.Configuration["API_URL"]);
+            services.AddSingleton<IntegrationConfig>(integrationConfig);
         }
     }
 }

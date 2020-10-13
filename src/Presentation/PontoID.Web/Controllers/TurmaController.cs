@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PontoID.Web.Data;
 using PontoID.Web.Models;
+using PontoID.Web.Services.Contracts;
+using System;
+using System.Threading.Tasks;
 
 namespace PontoID.Web.Controllers
 {
     public class TurmaController : Controller
     {
-        private readonly PontoIDWebContext _context;
+        private readonly ITurmaService _turmaService;
+        private readonly IEscolaService _escolaService;
 
-        public TurmaController(PontoIDWebContext context)
+        public TurmaController(ITurmaService turmaService, IEscolaService escolaService)
         {
-            _context = context;
+            _turmaService = turmaService;
+            _escolaService = escolaService;
         }
 
         // GET: Turma
         public async Task<IActionResult> Index()
         {
-            var pontoIDWebContext = _context.TurmaViewModel.Include(t => t.Escola);
-            return View(await pontoIDWebContext.ToListAsync());
+            var turmas = await this._turmaService.Listar(new TurmaRequest());
+            return View(turmas);
         }
 
         // GET: Turma/Details/5
@@ -34,9 +33,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var turmaViewModel = await _context.TurmaViewModel
-                .Include(t => t.Escola)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var turmaViewModel = await this._turmaService.Detalhes(id.Value);
             if (turmaViewModel == null)
             {
                 return NotFound();
@@ -48,7 +45,7 @@ namespace PontoID.Web.Controllers
         // GET: Turma/Create
         public IActionResult Create()
         {
-            ViewData["EscolaId"] = new SelectList(_context.EscolaViewModel, "Id", "Nome");
+            //ViewData["EscolaId"] = new SelectList(this._escolaService.Listar(), "Id", "Nome");
             return View();
         }
 
@@ -61,12 +58,10 @@ namespace PontoID.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                turmaViewModel.Id = Guid.NewGuid();
-                _context.Add(turmaViewModel);
-                await _context.SaveChangesAsync();
+                var response = await this._turmaService.Adicionar(turmaViewModel);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EscolaId"] = new SelectList(_context.EscolaViewModel, "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["EscolaId"] = new SelectList(await this._escolaService.Listar(), "Id", "Nome", turmaViewModel.EscolaId);
             return View(turmaViewModel);
         }
 
@@ -78,12 +73,12 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var turmaViewModel = await _context.TurmaViewModel.FindAsync(id);
+            var turmaViewModel = await this._turmaService.Detalhes(id.Value);
             if (turmaViewModel == null)
             {
                 return NotFound();
             }
-            ViewData["EscolaId"] = new SelectList(_context.EscolaViewModel, "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["EscolaId"] = new SelectList(this._escolaService.Listar().Result, "Id", "Nome", turmaViewModel.EscolaId);
             return View(turmaViewModel);
         }
 
@@ -101,25 +96,10 @@ namespace PontoID.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(turmaViewModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TurmaViewModelExists(turmaViewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var response = await this._turmaService.Editar(turmaViewModel);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EscolaId"] = new SelectList(_context.EscolaViewModel, "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["EscolaId"] = new SelectList(await this._escolaService.Listar(), "Id", "Nome", turmaViewModel.EscolaId);
             return View(turmaViewModel);
         }
 
@@ -131,9 +111,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var turmaViewModel = await _context.TurmaViewModel
-                .Include(t => t.Escola)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var turmaViewModel = await this._turmaService.Detalhes(id.Value);
             if (turmaViewModel == null)
             {
                 return NotFound();
@@ -147,15 +125,8 @@ namespace PontoID.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var turmaViewModel = await _context.TurmaViewModel.FindAsync(id);
-            _context.TurmaViewModel.Remove(turmaViewModel);
-            await _context.SaveChangesAsync();
+            var response = await this._turmaService.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool TurmaViewModelExists(Guid id)
-        {
-            return _context.TurmaViewModel.Any(e => e.Id == id);
         }
     }
 }

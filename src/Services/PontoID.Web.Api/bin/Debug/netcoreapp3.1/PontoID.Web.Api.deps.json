@@ -1660,8 +1660,7 @@
           "AutoMapper": "10.0.0",
           "FluentValidation": "9.2.2",
           "PontoID.Data.Repository.Reading": "1.0.0",
-          "PontoID.Domain": "1.0.0",
-          "PontoID.Domain.Shared": "1.0.0"
+          "PontoID.Domain": "1.0.0"
         },
         "runtime": {
           "PontoID.Application.dll": {}
@@ -1729,7 +1728,6 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.8",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "3.1.4",
           "PontoID.Application": "1.0.0",
-          "PontoID.Data.Context": "1.0.0",
           "PontoID.Infra.Data.Repository": "1.0.0"
         },
         "runtime": {

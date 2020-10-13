@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PontoID.Domain.Shared\PontoID.Domain.Shared.csproj" />
     <ProjectReference Include="..\PontoID.Data.Repository.Read\PontoID.Data.Repository.Reading.csproj" />
     <ProjectReference Include="..\PontoID.Domain\PontoID.Domain.csproj" />
   </ItemGroup>

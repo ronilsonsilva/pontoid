@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Entities;
+using PontoID.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;

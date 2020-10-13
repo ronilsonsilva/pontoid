@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PontoID.Application.Contracts;
 using PontoID.Domain.Shared.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PontoID.Web.Api.Controllers
@@ -17,7 +18,8 @@ namespace PontoID.Web.Api.Controllers
         [HttpGet("Listar")]
         public async Task<IActionResult> Listar()
         {
-            return this.DefaultResponse(await this._escolaApplication.Listar());
+            ICollection<EscolaViewModel> escolas = await this._escolaApplication.Listar();
+            return this.DefaultResponse(escolas);
         }
     }
 }

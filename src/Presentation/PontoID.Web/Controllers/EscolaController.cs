@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PontoID.Web.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using PontoID.Web.Models;
+using PontoID.Web.Services.Contracts;
+using System;
+using System.Threading.Tasks;
 
 namespace PontoID.Web.Controllers
 {
     public class EscolaController : Controller
     {
-        private readonly PontoIDWebContext _context;
+        private readonly IEscolaService _escolaService;
 
-        public EscolaController(PontoIDWebContext context)
+        public EscolaController(IEscolaService escolaService)
         {
-            _context = context;
+            _escolaService = escolaService;
         }
 
         // GET: EscolaViewModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EscolaViewModel.ToListAsync());
+            var escolas = await this._escolaService.Listar();
+            return View(escolas);
         }
 
         // GET: EscolaViewModels/Details/5
@@ -33,8 +30,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var escolaViewModel = await _context.EscolaViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var escolaViewModel = await this._escolaService.Detalhes(id.Value);
             if (escolaViewModel == null)
             {
                 return NotFound();
@@ -58,9 +54,7 @@ namespace PontoID.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                escolaViewModel.Id = Guid.NewGuid();
-                _context.Add(escolaViewModel);
-                await _context.SaveChangesAsync();
+                var response = await this._escolaService.Adicionar(escolaViewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(escolaViewModel);
@@ -74,7 +68,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var escolaViewModel = await _context.EscolaViewModel.FindAsync(id);
+            var escolaViewModel = await this._escolaService.Detalhes(id.Value);
             if (escolaViewModel == null)
             {
                 return NotFound();
@@ -96,22 +90,7 @@ namespace PontoID.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(escolaViewModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EscolaViewModelExists(escolaViewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var response = await this._escolaService.Editar(escolaViewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(escolaViewModel);
@@ -125,8 +104,7 @@ namespace PontoID.Web.Controllers
                 return NotFound();
             }
 
-            var escolaViewModel = await _context.EscolaViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var escolaViewModel = await this._escolaService.Detalhes(id.Value);
             if (escolaViewModel == null)
             {
                 return NotFound();
@@ -140,15 +118,9 @@ namespace PontoID.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var escolaViewModel = await _context.EscolaViewModel.FindAsync(id);
-            _context.EscolaViewModel.Remove(escolaViewModel);
-            await _context.SaveChangesAsync();
+            var response = await this._escolaService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EscolaViewModelExists(Guid id)
-        {
-            return _context.EscolaViewModel.Any(e => e.Id == id);
-        }
     }
 }

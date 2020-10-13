@@ -8,7 +8,7 @@ using PontoID.Data.Repository.Reading.Repositories;
 using PontoID.Domain.Contracts.Repositories;
 using PontoID.Domain.Contracts.Services;
 using PontoID.Domain.Services;
-using PontoID.Infra.Data.Repository;
+using PontoID.Infra.Data.Context;
 using PontoID.Infra.Data.Repository.Repositories;
 
 namespace PontoID.Infra.Croscutting.Ioc

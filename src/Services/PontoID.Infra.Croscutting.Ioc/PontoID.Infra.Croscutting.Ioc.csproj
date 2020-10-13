@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
     <ProjectReference Include="..\PontoID.Application\PontoID.Application.csproj" />
     <ProjectReference Include="..\PontoID.Infra.Data.Repository\PontoID.Infra.Data.Repository.csproj" />
   </ItemGroup>

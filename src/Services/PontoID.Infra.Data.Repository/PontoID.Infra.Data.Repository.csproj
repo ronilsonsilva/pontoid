@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
+    <ProjectReference Include="..\PontoID.Data.Context\PontoID.Data.Context.csproj" />
     <ProjectReference Include="..\PontoID.Domain\PontoID.Domain.csproj" />
   </ItemGroup>
 

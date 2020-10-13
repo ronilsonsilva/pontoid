@@ -2,7 +2,7 @@
 using PontoID.Data.Repository.Reading.Contracts;
 using PontoID.Domain.Shared.Request;
 using PontoID.Domain.Shared.ViewModels;
-using PontoID.Infra.Data.Repository;
+using PontoID.Infra.Data.Context;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
