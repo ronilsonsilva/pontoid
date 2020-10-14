@@ -23,3 +23,12 @@
 /src/Services/PontoID.Data.Context/obj
 /src/Services/PontoID.Domain.Shared/bin/Debug/netcoreapp3.1
 /src/Services/PontoID.Domain.Shared/obj
+/src/Presentation/PontoID.Web/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Application/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Data.Context/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Data.Repository.Read/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Domain/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Domain.Shared/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Infra.Croscutting.Ioc/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Infra.Data.Repository/bin/Release/netcoreapp3.1
+/src/Services/PontoID.Web.Api/bin/Release/netcoreapp3.1
