@@ -5,38 +5,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodigoINEP)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoINEP)
-            </td>
-            <td>
-                <a asp-controller="Escola" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-controller="Escola" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-controller="Escola" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+<section class="content">
+    <div class="row content-header">
+        <div class="col-md-10">
+            <h3>Escolas</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                <a class="btn btn-success" asp-action="Create"> <i class="fas fa-plus"></i> Novo</a>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Nome)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodigoINEP)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nome)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.codigoINEP)
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Escola" asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit"></i></a>
+                                                <a asp-controller="Escola" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-search"></i></a> 
+                                                <a asp-controller="Escola" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+

@@ -30,7 +30,7 @@ namespace PontoID.Web.Services
 
         public async Task<ResponseApi<bool>> Delete(Guid id)
         {
-            var restRequest = new RestRequest("Aluno", DataFormat.Json);
+            var restRequest = new RestRequest("Aluno/{id}", DataFormat.Json);
             restRequest.AddUrlSegment("id", id);
             return await this._client.DeleteAsync<ResponseApi<bool>>(restRequest);
         }
@@ -44,7 +44,7 @@ namespace PontoID.Web.Services
 
         public async Task<AlunoViewModel> Detalhes(Guid id)
         {
-            var restRequest = new RestRequest("Aluno", DataFormat.Json);
+            var restRequest = new RestRequest("Aluno/{id}", DataFormat.Json);
             restRequest.AddUrlSegment("id", id);
             return await this._client.GetAsync<AlunoViewModel>(restRequest);
         }

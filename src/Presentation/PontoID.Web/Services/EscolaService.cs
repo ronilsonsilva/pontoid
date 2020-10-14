@@ -23,16 +23,18 @@ namespace PontoID.Web.Services
 
         public async Task<ResponseApi<bool>> Delete(Guid id)
         {
-            var restRequest = new RestRequest("Escola", DataFormat.Json);
+            var restRequest = new RestRequest("Escola/{id}", DataFormat.Json);
             restRequest.AddUrlSegment("id", id);
-            return await this._client.DeleteAsync<ResponseApi<bool>>(restRequest);
+            var response = await this._client.DeleteAsync<ResponseApi<bool>>(restRequest);
+            return response;
         }
 
-        public async Task<AlunoViewModel> Detalhes(Guid id)
+        public async Task<EscolaViewModel> Detalhes(Guid id)
         {
-            var restRequest = new RestRequest("Escola", DataFormat.Json);
+            var restRequest = new RestRequest("Escola/{id}", DataFormat.Json);
             restRequest.AddUrlSegment("id", id);
-            return await this._client.GetAsync<AlunoViewModel>(restRequest);
+            var escola = await this._client.GetAsync<EscolaViewModel>(restRequest);
+            return escola;
         }
 
         public async Task<ResponseApi<EscolaViewModel>> Editar(EscolaViewModel model)

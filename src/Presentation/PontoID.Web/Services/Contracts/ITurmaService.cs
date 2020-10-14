@@ -11,6 +11,6 @@ namespace PontoID.Web.Services.Contracts
         Task<ResponseApi<bool>> Delete(Guid id);
         Task<TurmaViewModel> Detalhes(Guid id);
         Task<ResponseApi<TurmaViewModel>> Editar(TurmaViewModel model);
-        Task<ICollection<TurmaViewModel>> Listar(TurmaRequest request);
+        Task<List<TurmaViewModel>> Listar(TurmaRequest request);
     }
 }

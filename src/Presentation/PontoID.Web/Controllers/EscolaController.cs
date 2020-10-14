@@ -22,7 +22,7 @@ namespace PontoID.Web.Controllers
             return View(escolas);
         }
 
-        // GET: EscolaViewModels/Details/5
+        
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -50,10 +50,11 @@ namespace PontoID.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,CodigoINEP,Id,Cadastro,Atualizado")] EscolaViewModel escolaViewModel)
+        public async Task<IActionResult> Create([Bind("Nome,CodigoINEP,codigoINEP,Id,Cadastro,Atualizado")] EscolaViewModel escolaViewModel)
         {
             if (ModelState.IsValid)
             {
+                escolaViewModel.CodigoINEP = escolaViewModel.codigoINEP;
                 var response = await this._escolaService.Adicionar(escolaViewModel);
                 return RedirectToAction(nameof(Index));
             }
@@ -61,14 +62,14 @@ namespace PontoID.Web.Controllers
         }
 
         // GET: EscolaViewModels/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var escolaViewModel = await this._escolaService.Detalhes(id.Value);
+            var escolaViewModel = await this._escolaService.Detalhes(id);
             if (escolaViewModel == null)
             {
                 return NotFound();
@@ -81,7 +82,7 @@ namespace PontoID.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,CodigoINEP,Id,Cadastro,Atualizado")] EscolaViewModel escolaViewModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Nome,CodigoINEP,codigoINEP,Id,Cadastro,Atualizado")] EscolaViewModel escolaViewModel)
         {
             if (id != escolaViewModel.Id)
             {
@@ -90,6 +91,7 @@ namespace PontoID.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                escolaViewModel.CodigoINEP = escolaViewModel.codigoINEP;
                 var response = await this._escolaService.Editar(escolaViewModel);
                 return RedirectToAction(nameof(Index));
             }

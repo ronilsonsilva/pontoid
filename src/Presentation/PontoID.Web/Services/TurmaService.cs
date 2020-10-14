@@ -23,14 +23,14 @@ namespace PontoID.Web.Services
 
         public async Task<ResponseApi<bool>> Delete(Guid id)
         {
-            var restRequest = new RestRequest("Turma", DataFormat.Json);
+            var restRequest = new RestRequest("Turma/{id}", DataFormat.Json);
             restRequest.AddUrlSegment("id", id);
             return await this._client.DeleteAsync<ResponseApi<bool>>(restRequest);
         }
 
         public async Task<TurmaViewModel> Detalhes(Guid id)
         {
-            var restRequest = new RestRequest("Turma", DataFormat.Json);
+            var restRequest = new RestRequest("Turma/{id}", DataFormat.Json);
             restRequest.AddUrlSegment("id", id);
             return await this._client.GetAsync<TurmaViewModel>(restRequest);
         }
@@ -42,11 +42,11 @@ namespace PontoID.Web.Services
             return await this._client.PutAsync<ResponseApi<TurmaViewModel>>(restRequest);
         }
 
-        public async Task<ICollection<TurmaViewModel>> Listar(TurmaRequest request)
+        public async Task<List<TurmaViewModel>> Listar(TurmaRequest request)
         {
             var restRequest = new RestRequest("Turma/Listar", DataFormat.Json);
             restRequest.AddJsonBody(request);
-            return await this._client.GetAsync<List<TurmaViewModel>>(restRequest);
+            return await this._client.PostAsync<List<TurmaViewModel>>(restRequest);
         }
     }
 }

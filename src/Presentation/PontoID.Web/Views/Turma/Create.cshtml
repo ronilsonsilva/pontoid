@@ -1,57 +1,62 @@
 ﻿@model PontoID.Web.Models.TurmaViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Adicionar Turma";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>TurmaViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <textarea asp-for="Descricao" class="form-control"></textarea>
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Turno" class="control-label"></label>
-                <select asp-for="Turno" class="form-control"></select>
-                <span asp-validation-for="Turno" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EscolaId" class="control-label"></label>
-                <select asp-for="EscolaId" class ="form-control" asp-items="ViewBag.EscolaId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cadastro" class="control-label"></label>
-                <input asp-for="Cadastro" class="form-control" />
-                <span asp-validation-for="Cadastro" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Atualizado" class="control-label"></label>
-                <input asp-for="Atualizado" class="form-control" />
-                <span asp-validation-for="Atualizado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+<section class="content">
+    <div class="row content-header">
+        <div class="col-md-10">
+            <h3>Adicionar Turma</h3>
+        </div>
+        <div class="col-md-2 float-right">
+            <a class="btn" asp-action="Index"> <i class="fas fa-arrow-left"></i> Retornar</a>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Nome" class="control-label"></label>
+                                    <input asp-for="Nome" class="form-control" />
+                                    <span asp-validation-for="Nome" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Descricao" class="control-label"></label>
+                                    <textarea asp-for="Descricao" class="form-control"></textarea>
+                                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Turno" class="control-label"></label>
+                                    <select asp-for="Turno" class="form-control" asp-items="ViewBag.Turno"></select>
+                                    <span asp-validation-for="Turno" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="EscolaId" class="control-label"></label>
+                                    <select asp-for="EscolaId" class="form-control" asp-items="ViewBag.EscolaId"></select>
+                                </div>
+                                <div class="form-group float-right">
+                                    <input type="submit" value="Salvar" class="btn btn-primary" />
+                                </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

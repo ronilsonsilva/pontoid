@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PontoID.Web.Helpers;
 using PontoID.Web.Models;
 using PontoID.Web.Services.Contracts;
 using System;
@@ -26,14 +27,14 @@ namespace PontoID.Web.Controllers
         }
 
         // GET: Turma/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var turmaViewModel = await this._turmaService.Detalhes(id.Value);
+            var turmaViewModel = await this._turmaService.Detalhes(id);
             if (turmaViewModel == null)
             {
                 return NotFound();
@@ -43,9 +44,11 @@ namespace PontoID.Web.Controllers
         }
 
         // GET: Turma/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            //ViewData["EscolaId"] = new SelectList(this._escolaService.Listar(), "Id", "Nome");
+            var turmaViewModel = new TurmaViewModel();
+            ViewData["EscolaId"] = new SelectList(await this._escolaService.Listar(), "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["Turno"] = DataHelpers.Turnos(turmaViewModel.Turno);
             return View();
         }
 
@@ -62,23 +65,25 @@ namespace PontoID.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EscolaId"] = new SelectList(await this._escolaService.Listar(), "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["Turno"] = DataHelpers.Turnos(turmaViewModel.Turno);
             return View(turmaViewModel);
         }
 
         // GET: Turma/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var turmaViewModel = await this._turmaService.Detalhes(id.Value);
+            var turmaViewModel = await this._turmaService.Detalhes(id);
             if (turmaViewModel == null)
             {
                 return NotFound();
             }
             ViewData["EscolaId"] = new SelectList(this._escolaService.Listar().Result, "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["Turno"] = DataHelpers.Turnos(turmaViewModel.Turno);
             return View(turmaViewModel);
         }
 
@@ -100,18 +105,19 @@ namespace PontoID.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EscolaId"] = new SelectList(await this._escolaService.Listar(), "Id", "Nome", turmaViewModel.EscolaId);
+            ViewData["Turno"] = DataHelpers.Turnos(turmaViewModel.Turno);
             return View(turmaViewModel);
         }
 
         // GET: Turma/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var turmaViewModel = await this._turmaService.Detalhes(id.Value);
+            var turmaViewModel = await this._turmaService.Detalhes(id);
             if (turmaViewModel == null)
             {
                 return NotFound();

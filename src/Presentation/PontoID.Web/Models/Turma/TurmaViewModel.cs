@@ -16,6 +16,7 @@ namespace PontoID.Web.Models
         public string Descricao { get; set; }
 
         public TurnoEnum Turno { get; set; }
+        public string NomeEscola { get; set; }
 
         public Guid EscolaId { get; set; }
         public EscolaViewModel Escola { get; set; }

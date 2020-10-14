@@ -9,5 +9,6 @@ namespace PontoID.Domain.Shared.ViewModels
         public string Descricao { get; set; }
         public TurnoEnum Turno { get; set; }
         public Guid EscolaId { get; set; }
+        public string NomeEscola { get; set; }
     }
 }

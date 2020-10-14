@@ -20,18 +20,20 @@ namespace PontoID.Data.Repository.Reading.Repositories
         public async Task<ICollection<TurmaViewModel>> Listar(TurmaRequest request)
         {
             var query = new StringBuilder();
-            query.AppendLine(" SELECT * FROM \"Turma\" ");
+            query.AppendLine(" SELECT \"Escola\".\"Nome\" AS \"NomeEscola\", \"Turma\".* FROM \"Turma\" ");
+            query.AppendLine(" INNER JOIN \"Escola\" ON \"Escola\".\"Id\" = \"Turma\".\"EscolaId\" ");
+            query.AppendLine(" LEFT JOIN \"AlunoTurma\" ON \"AlunoTurma\".\"TurmaId\" = \"Turma\".\"Id\" ");
             bool flagWhere = false;
             var parameters = new DynamicParameters();
             if (request.AlunoId.HasValue)
             {
-                query.AppendLine(" WHERE \"AlunoId\" = @alunoId ");
+                query.AppendLine(" WHERE \"AlunoTurma\".\"AlunoId\" = @alunoId ");
                 parameters.Add("@alunoId", request.AlunoId, DbType.Guid);
                 flagWhere = true;
             }
             if (request.EscolaId.HasValue)
             {
-                if(flagWhere) 
+                if (flagWhere)
                     query.AppendLine(" AND \"EscolaId\" = @escolaId ");
                 else query.AppendLine(" WHERE \"EscolaId\" = @escolaId ");
                 parameters.Add("@escolaId", request.EscolaId, DbType.Guid);

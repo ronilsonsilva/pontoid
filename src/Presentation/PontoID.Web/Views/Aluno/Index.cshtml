@@ -1,60 +1,70 @@
 ﻿@model IEnumerable<PontoID.Web.Models.AlunoViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Alunos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cpf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cadastro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Atualizado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cpf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cadastro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Atualizado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="content">
+    <div class="row content-header">
+        <div class="col-md-10">
+            <h3>Alunos</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>
+                                <a class="btn btn-success" asp-action="Create"> <i class="fas fa-plus"></i> Novo</a>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Nome)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DataNascimento)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Cpf)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nome)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DataNascimento)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Cpf)
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Aluno" asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit"></i></a>
+                                                <a asp-controller="Aluno" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-search"></i></a>
+                                                <a asp-controller="Aluno" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

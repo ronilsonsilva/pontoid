@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PontoID.Web.Models
@@ -18,5 +19,9 @@ namespace PontoID.Web.Models
         [Display(Name = "CPF")]
         [StringLength(maximumLength: 11, MinimumLength = 11)]
         public string Cpf { get; set; }
+
+        public ICollection<TurmaViewModel> Turmas { get; set; }
+        public Guid TurmaId { get; set; }
+        public TurmaViewModel Turma { get; set; }
     }
 }

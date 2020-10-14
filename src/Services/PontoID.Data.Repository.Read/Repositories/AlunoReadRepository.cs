@@ -21,7 +21,7 @@ namespace PontoID.Data.Repository.Reading.Repositories
         {
             var query = new StringBuilder();
             query.AppendLine(" SELECT ");
-            query.AppendLine("     \"Aluno\".\"Nome\", \"Aluno\".\"DataNascimento\", \"Aluno\".\"Cpf\" ");
+            query.AppendLine("     \"Aluno\".\"Nome\", \"Aluno\".\"DataNascimento\", \"Aluno\".\"Cpf\", \"Aluno\".\"Id\" ");
             query.AppendLine(" FROM \"Aluno\" ");
             query.AppendLine(" LEFT JOIN \"AlunoTurma\" ON \"AlunoTurma\".\"AlunoId\" = \"Aluno\".\"Id\" ");
             query.AppendLine(" LEFT JOIN \"Turma\" ON \"AlunoTurma\".\"TurmaId\" = \"Turma\".\"Id\" ");
