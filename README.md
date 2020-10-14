@@ -11,9 +11,9 @@ Desenvolver em C# (ASP.NET Core preferencialmente) uma API REST, fornecendo as o
 # • 3º Objetivo:
 Desenvolver um aplicativo Web MVC, SIMPLES, que faça as operações básicas modeladas, acessando os endpoints da API desenvolvida, para alimentar o banco de dados.
 
-# Link da API:
-# Link da Aplicação Web: 
+# Link da API: https://escolaapi.azurewebsites.net/swagger
+# Link da Aplicação Web: https://adminescola.azurewebsites.net
 
 # Como executar a aplicação
 No visual studio, abrir o pakage manager console, selecione o projeto PontoID.Data.Context como alvo, e execute o comando: Update-Database
-Certifique de ter definido uma string de conexão válida, no arquivo de configuração da API
+Certifique de ter definido uma string de conexão válida, e um banco de dados Postgres, no arquivo de configuração da API
